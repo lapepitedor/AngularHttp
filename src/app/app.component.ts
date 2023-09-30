@@ -9,34 +9,20 @@ import { User } from './interface/user';
 })
 export class AppComponent implements OnInit {
   title = 'AngularHttpLernen';
-  private user: User = {
-    id: 5,
-    name: 'junior Graham',
-    username: 'junior',
-    email: 'admin@gmail.com',
-    address: {
-      street: 'Kulas Light',
-      suite: 'Apt. 556',
-      city: 'Gwenborough',
-      zipcode: '92998-3874',
-      geo: {
-        lat: '-37.3159',
-        lng: '81.1496',
-      },
-    },
-    phone: '1-770-736-8031 x56442',
-    website: 'hildegard.org',
-    company: {
-      name: 'Romaguera-Crona',
-      catchPhrase: 'Multi-layered client-server neural-net',
-      bs: 'harness real-time e-markets',
-    },
+  private user: any = {
+    id: 1,
+    name: 'juni Grah',
+    username: 'juni234',
+    email: 'admin@gmail.de',
+    
   };
   ngOnInit(): void {
     this.onGetUsers();
     // this.onGetUser();
     //this.onCreateUser();
-    this.onUpdate();
+    //this.onUpdate();
+    //this.onPatchUser();
+    this.onDeleteUser();
   }
   constructor(private userService: UserService) {}
   onGetUsers(): void {
@@ -75,6 +61,13 @@ export class AppComponent implements OnInit {
       (response) => console.log(response),
       (error: any) => console.log(error),
       () => console.log('Done patching user')
+    );
+  }
+  onDeleteUser(): void {
+    this.userService.deleteUser(1).subscribe(
+      (response) => console.log('Response from delete:',response),
+      (error: any) => console.log(error),
+      () => console.log('Done deleting user')
     );
   }
 }
