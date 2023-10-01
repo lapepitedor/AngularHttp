@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../interface/user';
 import { environment } from 'src/assets/environments/environment';
@@ -9,17 +9,17 @@ import { environment } from 'src/assets/environments/environment';
 })
 export class UserService {
   private apiUrl = environment.apiUrl;
+  readonly moreparams =['test1','test2']
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
-    let myHeaders = new HttpHeaders({ 'myheader': 'headervalue' })
-     /* let myHeaders = new HttpHeaders({
-        myheader: ['headervalue', 'headervalue2'],
-      });*/
-    myHeaders = myHeaders.set('id', '1234');
-    myHeaders = myHeaders.append('id', '0000');
-    return this.http.get<User[]>(`${this.apiUrl}/users`,{headers: myHeaders});
+    const theParams = { ['testList']: this.moreparams };
+    
+    //let myparams = new HttpParams().set('page', '5').set('sort', 'true')
+    //let myparams = new HttpParams({ fromObject : theParams});
+    let myparams = new HttpParams({fromString:'name=junior&id=5'});
+    return this.http.get<User[]>(`${this.apiUrl}/users`,{params: myparams});
   }
 
   getUser(): Observable<User[]> {
